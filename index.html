@@ -1,74 +1,89 @@
 <!DOCTYPE html>
 
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StudyCheck</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MineStudy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G5RBGGP46B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G5RBGGP46B');
+</script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="hdr">
+    <h1 class="logo">Mine<span>Study</span></h1>
+    <button class="cfg-btn" id="settingsBtn">⚙️ 設定</button>
+  </header>
+
+  <div class="wrap">
 
 
-<!-- ── ヘッダー ── -->
-<header class="app-header">
-  <h1 class="app-title">Study<span>Check</span></h1>
-  <button class="icon-btn" id="settingsBtn">⚙️ 設定</button>
-</header>
+<div class="fbar" id="filterBar"></div>
 
-<div class="app-wrapper">
-
-  <!-- ── フィルターバー ── -->
-  <div class="filter-bar" id="filterBar"></div>
-
-  <!-- ── 入力フォーム ── -->
-  <div class="input-card">
-    <input class="input-text" id="todoInput" placeholder="タスクを入力…" />
-    <select class="subject-select" id="subjectSelect"></select>
-    <button class="add-btn" id="addBtn">＋ 追加</button>
-  </div>
-
-  <!-- ── ToDoリスト ── -->
-  <div class="todo-list" id="todoList"></div>
-
-  <!-- ── 一括削除ボタン ── -->
-  <div class="bulk-zone" id="bulkZone" style="display:none;">
-    <button class="bulk-del-btn" id="bulkDelBtn">🗑️ すべて削除</button>
-  </div>
-
+<div class="iform">
+  <input class="itxt" id="todoInput" placeholder="やること">
+  <input class="iamt" id="amountInput" placeholder="分量">
+  <select class="isel" id="subjectSelect"></select>
+  <button class="addbtn" id="addBtn">＋ 追加</button>
 </div>
 
-<!-- ══ 設定モーダル ══ -->
-<div class="modal-overlay" id="settingsModal" style="display:none;">
-  <div class="modal-box">
-    <div class="modal-title">⚙️ 科目の設定</div>
-    <div id="subjectSettings"></div>
-    <div class="modal-footer">
-      <button class="btn-cancel" id="settingsCancel">キャンセル</button>
-      <button class="btn-save"   id="settingsSave">保存</button>
+<div class="tlist" id="todoList"></div>
+
+<div class="bzone" id="bulkZone" style="display:none;">
+  <button class="bdelbtn" id="bulkDelBtn">🗑️ すべて削除</button>
+</div>
+
+
+  </div>
+
+  <div class="overlay" id="settingsModal" style="display:none;">
+    <div class="mbox">
+      <div class="mtitle">⚙️ 科目の設定</div>
+      <div id="subjectSettings"></div>
+      <div class="mfoot">
+        <button class="cbtn" id="settingsCancel">キャンセル</button>
+        <button class="sbtn" id="settingsSave">保存</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- ══ 一括削除確認モーダル ══ -->
-<div class="modal-overlay" id="bulkModal" style="display:none;">
-  <div class="modal-box">
-    <div class="modal-title">🗑️ すべてのタスクを削除</div>
-    <p style="color:#555; font-size:0.9rem; margin:0 0 4px;">
-      この操作は取り消せません。<br>
-      削除するには下のボックスに <strong>「削除」</strong> と入力してください。
-    </p>
-    <input class="confirm-input" id="confirmInput" placeholder="削除" />
-    <div class="modal-footer">
-      <button class="btn-cancel" id="bulkCancel">キャンセル</button>
-      <button class="btn-danger" id="bulkConfirm" disabled>削除する</button>
+  <div class="overlay" id="bulkModal" style="display:none;">
+    <div class="mbox">
+      <div class="mtitle">🗑️ すべて削除</div>
+      <p class="mdesc">この操作は取り消せません。<br>「<strong>削除</strong>」と入力してください。</p>
+      <input class="cinput" id="confirmInput" placeholder="削除">
+      <div class="mfoot">
+        <button class="cbtn" id="bulkCancel">キャンセル</button>
+        <button class="dbtn" id="bulkConfirm" disabled>削除する</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script src="app.js"></script>
+  <div class="overlay" id="rowDelModal" style="display:none;">
+    <div class="mbox">
+      <div class="mtitle">タスクを削除しますか？</div>
+      <p class="mdesc" id="rowDelDesc"></p>
+      <div class="mfoot">
+        <button class="cbtn" id="rowDelCancel">いいえ</button>
+        <button class="dbtn" id="rowDelConfirm">はい</button>
+      </div>
+    </div>
+  </div>
 
+  <script src="app.js"></script>
 
-  </body>
+</body>
 </html>
